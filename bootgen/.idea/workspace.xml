@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5ffc1a93-192f-4f7e-8ad7-47689b5e97e0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/bootgen.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BootFormat.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IntelHexExtended.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/USBEEFormat.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__main__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/genui.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainscreen.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainscreen.ui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.bootproject" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1gXqF2YUgQn9tJ7LlHXlrbcoWno" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowPython Console.ShowToolbar" value="false" />
+    <property name="ToolWindowSVN Repositories.ShowToolbar" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0/LocalCache/local-packages/Python38/Scripts/designer.exe" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+      </console-settings>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.__main__">
+    <configuration name="genui" type="BatchConfigurationType" factoryName="Batch" temporary="true">
+      <module name="bootgen" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\projects\I2C_EEPROM_PROG\bootgen" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="genui.bat" />
+      <option name="PARAMETERS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="__main__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="bootgen" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/__main__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="mainscreen" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="bootgen" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mainscreen.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.__main__" />
+        <item itemvalue="Batch.genui" />
+        <item itemvalue="Python.mainscreen" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\m91541\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\projects\I2C_EEPROM_PROG\bootgen" />
+          <option name="myCopyRoot" value="C:\projects\I2C_EEPROM_PROG\bootgen" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\projects\I2C_EEPROM_PROG\bootgen" />
+          <option name="myCopyRoot" value="C:\projects\I2C_EEPROM_PROG\bootgen" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5ffc1a93-192f-4f7e-8ad7-47689b5e97e0" name="Default Changelist" comment="" />
+      <created>1598271177918</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598271177918</updated>
+    </task>
+    <task id="LOCAL-00001">
+      <created>1600243179347</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1600243179347</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-1075" y="382" key="#Notifications" timestamp="1600243008186">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1075" y="382" key="#Notifications/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1600243008186" />
+    <state x="-1506" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598536210257">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1506" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598536210257" />
+    <state x="-1222" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598536134686">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1222" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598536134686" />
+    <state x="-1192" y="349" width="463" height="497" key="#com.intellij.tools.ToolEditorDialog" timestamp="1598535875028">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1192" y="349" width="463" height="497" key="#com.intellij.tools.ToolEditorDialog/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598535875028" />
+    <state x="831" y="272" width="523" height="495" key="#xdebugger.XInspectDialog" timestamp="1599602083981">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1089" y="272" width="523" height="495" key="#xdebugger.XInspectDialog/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598284207574" />
+    <state x="831" y="272" key="#xdebugger.XInspectDialog/0.0.1920.1040/1920.-194.1920.1040@0.0.1920.1040" timestamp="1599602083981" />
+    <state x="-1205" y="222" key="#xdebugger.evaluate" timestamp="1598284258668">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1205" y="222" key="#xdebugger.evaluate/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598284258668" />
+    <state x="-1723" y="104" width="1108" height="832" key="CommitChangelistDialog2" timestamp="1600243164731">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1723" y="104" width="1108" height="832" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1600243164731" />
+    <state x="-1828" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1600243303423">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1828" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1600243303423" />
+    <state x="-1181" y="352" key="FileChooserDialogImpl" timestamp="1598871633325">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1181" y="352" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598871633325" />
+    <state width="1899" height="347" key="GridCell.Tab.0.bottom" timestamp="1600096513964">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598542194944" />
+    <state width="1899" height="347" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1600096513964" />
+    <state width="1899" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-194.1920.1040@0.0.1920.1040" timestamp="1599675300268" />
+    <state width="1899" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-194.1920.1040@1920.-194.1920.1040" timestamp="1599944014329" />
+    <state width="1899" height="347" key="GridCell.Tab.0.center" timestamp="1600096513964">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="348" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598542194943" />
+    <state width="1899" height="347" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1600096513964" />
+    <state width="1899" height="348" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-194.1920.1040@0.0.1920.1040" timestamp="1599675300268" />
+    <state width="1899" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-194.1920.1040@1920.-194.1920.1040" timestamp="1599944014328" />
+    <state width="1899" height="347" key="GridCell.Tab.0.left" timestamp="1600096513964">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="348" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598542194943" />
+    <state width="1899" height="347" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1600096513964" />
+    <state width="1899" height="348" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-194.1920.1040@0.0.1920.1040" timestamp="1599675300268" />
+    <state width="1899" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-194.1920.1040@1920.-194.1920.1040" timestamp="1599944014328" />
+    <state width="1899" height="347" key="GridCell.Tab.0.right" timestamp="1600096513964">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="348" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598542194944" />
+    <state width="1899" height="347" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1600096513964" />
+    <state width="1899" height="348" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-194.1920.1040@0.0.1920.1040" timestamp="1599675300268" />
+    <state width="1899" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-194.1920.1040@1920.-194.1920.1040" timestamp="1599944014329" />
+    <state x="-1459" y="164" key="SettingsEditor" timestamp="1598536006382">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1459" y="164" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1598536006382" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1599591904226">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/1920.-194.1920.1040@0.0.1920.1040" timestamp="1599591904226" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1599467096221">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.-194.1920.1040@0.0.1920.1040" timestamp="1599467096221" />
+    <state x="-1143" y="360" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600242761766">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1143" y="360" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1600242761766" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1599511353249">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.-194.1920.1040@0.0.1920.1040" timestamp="1599511353249" />
+    <state x="-1154" y="205" width="435" height="629" key="svn.repositoryBrowser" timestamp="1600242467530">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1154" y="205" width="435" height="629" key="svn.repositoryBrowser/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1600242467530" />
+    <state x="-1131" y="423" key="svn.upgradeDialog" timestamp="1600242506878">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1131" y="423" key="svn.upgradeDialog/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1600242506878" />
+  </component>
+</project>

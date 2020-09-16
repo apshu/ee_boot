@@ -1,6 +1,0 @@
-chardet>=3.0.4
-crcmod>=1.7
-intelhex>=2.2.1
-PyMCP2221A>=1.4.0
-PyQt5>=5.15.0
-numexpr>=2.7.1
