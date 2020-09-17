@@ -168,7 +168,6 @@ class BootFormat(USBEEFormat):
     def to_dict(self):
         if (not self._cache) or self.compatibility.is_changed:
             output = IntelHex()
-            encoded_description = b''
             try:
                 encoded_description = self.description.encode('ascii')
             except:
