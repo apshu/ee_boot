@@ -36,7 +36,7 @@ class IntelHex(intelhex.IntelHex):
     def apply_pad_to_align_page(self, page_size, page_end = None):
         if page_end is None:
             page_end = page_size
-        if page_size > 1 or page_end > 1:
+        if page_size and page_size > 1 or page_end > 1:
             for segment_start, segment_end in self.segments():
                 segment_page_start = segment_start - segment_start % page_size
                 segment_page_end = segment_end + page_end - segment_end % page_end
