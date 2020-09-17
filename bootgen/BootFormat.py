@@ -181,7 +181,7 @@ class BootFormat(USBEEFormat):
                         try:
                             encoded_description = codecs.BOM_UTF32_BE + self.description.encode('utf-32-be')
                         except:
-                            raise
+                            raise UnicodeEncodeError('Cannot encode text in ASCII or UTF-8 or UTF-16 or UTF-32')
             header_total_length = 28 + len(self._segments) * _boot_section().len_descriptor + len(encoded_description)
             binary_data_pointer = header_total_length
             header_total_length_bytes = struct.pack('<I', header_total_length)
@@ -200,6 +200,11 @@ class BootFormat(USBEEFormat):
             output.frombytes(crc32)
             self._cache = output.todict()
         return self._cache
+
+    # Returns the length of the data bytes (excl. header)
+    def __len__(self):
+        ln = sum(map(lambda item: item.num_data_bytes, self._segments), 0)
+        return ln
 
     def load_IntelHex(self, ihex: IntelHex):
         self._segments = []
