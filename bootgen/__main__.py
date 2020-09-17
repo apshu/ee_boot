@@ -8,6 +8,8 @@ import numexpr
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QLineEdit
 
+from BootFormat import BootFormat
+from IntelHexExtended import IntelHex
 from mainscreen import Ui_MainWindow
 
 
@@ -102,6 +104,13 @@ class MainApplicationActions(QtWidgets.QMainWindow):
             def validate(enum_self):
                 return enum_self.__field_checker(enum_self.obj)
 
+            @property
+            def form_value_asserted(enum_self):
+                return_value, is_valid = enum_self.validate()
+                if is_valid < 0:
+                    raise AttributeError('Form value is invalid')
+                return enum_self.form_value
+
             @classmethod
             def get_members_casefold(cls, member_name: str):
                 return [member for member in cls if member.name.casefold() == member_name.casefold()]
@@ -165,7 +174,7 @@ class MainApplicationActions(QtWidgets.QMainWindow):
         if hasattr(self, f'_{self.__class__.__name__}__signal_blockers'):
             for blocker in self.__signal_blockers.values():
                 del blocker
-            del self.__signal_blockersl
+            del self.__signal_blockers
 
     def load_project_from_dict(self, load_from_dict: dict):
         load_from_dict_casefold = {str(key).casefold(): val for key, val in load_from_dict.items()}
@@ -222,50 +231,38 @@ class MainApplicationActions(QtWidgets.QMainWindow):
     def save_hex(self):
         pass
 
+    def _form_to_eeprom_data(self):
+        def val_or_default(condition_field, form_field, default = None):
+            if condition_field.form_value:
+                return int(str(form_field.form_value_asserted),0)
+            return default
+
+        prjio = self.get_project_file_io()
+        eeprom_data = BootFormat()
+        try:
+            input_hex_file = IntelHex(prjio.INPUT_FILE.form_value_asserted)
+            hex_ranges_list, is_valid = self.get_hex_filter_ranges()
+            if is_valid < 0:
+                raise AttributeError('Input file filter ranges are invalid')
+            input_hex_file.apply_range_filter(hex_ranges_list)
+            input_hex_file.apply_pad_to_align_page(val_or_default(prjio.MCU_ERASE_PAGE_BYTES, prjio.MCU_ERASE_PAGE_BYTES), val_or_default(prjio.MCU_PROGRAM_PAGE_BYTES,prjio.MCU_PROGRAM_PAGE_BYTES))
+            eeprom_data.load_IntelHex(input_hex_file)
+            eeprom_data.description = prjio.FILE_COMMENT.form_value_asserted
+            eeprom_data.compatibility.DEVID0 = val_or_default(prjio.DEVID0_ENABLED, prjio.DEVID0)
+            eeprom_data.compatibility.DEVID1 = val_or_default(prjio.DEVID1_ENABLED, prjio.DEVID1)
+            eeprom_data.compatibility.DEVID2 = val_or_default(prjio.DEVID2_ENABLED, prjio.DEVID2)
+            eeprom_data.compatibility.PCBID0 = val_or_default(prjio.PCBID0_ENABLED, prjio.PCBID0)
+            eeprom_data.compatibility.PCBID1 = val_or_default(prjio.PCBID1_ENABLED, prjio.PCBID1)
+            eeprom_data.compatibility.PCBID2 = val_or_default(prjio.PCBID2_ENABLED, prjio.PCBID2)
+        except:
+            return None
+        return eeprom_data
+
     def recalculate(self):
         print('recalculate')
-        # erase_page_size = int(ui.erase_page_size_edt.text(), base=0)  # The erase page size is 512 32-bit words.
-        # program_page_size = int(ui.program_page_size_edt.text(), base=0)  # Program row size
-        # input_hex_file = IntelHex(ui.input_file_name_edt.text())
-        # hex_filter_ranges, is_valid = self.get_hex_filter_ranges()
-        #
-        # input_hex_file.apply_range_filter(hex_filter_ranges)
-        # input_hex_file.apply_pad_to_align_page(page_size=erase_page_size, page_end=program_page_size)
-        # eeprom_data = BootFormat()
-        # eeprom_data.load_IntelHex(input_hex_file)
-        # # add description
-        # eeprom_data.description = ui.file_comment_edt.toPlainText().strip()
-        # self.ui.file_comment_edt.blockSignals(True)
-        # ui.file_comment_edt.setPlainText(eeprom_data.description)
-        # self.ui.file_comment_edt.blockSignals(False)
-        # # readout devids
-        # if ui.devid0_used_cb.checkState():
-        #     eeprom_data.compatibility.DEVID0 = int(ui.devid0_edt.text(), base=0)
-        # else:
-        #     eeprom_data.compatibility.DEVID0 = None
-        # if ui.devid1_used_cb.checkState():
-        #     eeprom_data.compatibility.DEVID1 = int(ui.devid1_edt.text(), base=0)
-        # else:
-        #     eeprom_data.compatibility.DEVID1 = None
-        # if ui.devid2_used_cb.checkState():
-        #     eeprom_data.compatibility.DEVID2 = int(ui.devid2_edt.text(), base=0)
-        # else:
-        #     eeprom_data.compatibility.DEVID2 = None
-        # # readout pcbids
-        # if ui.pcbid0_used_cb.checkState():
-        #     eeprom_data.compatibility.PCBID0 = ui.pcbid0_spin.value()
-        # else:
-        #     eeprom_data.compatibility.PCBID0 = None
-        # if ui.pcbid1_used_cb.checkState():
-        #     eeprom_data.compatibility.PCBID1 = ui.pcbid1_spin.value()
-        # else:
-        #     eeprom_data.compatibility.PCBID1 = None
-        # if ui.pcbid2_used_cb.checkState():
-        #     eeprom_data.compatibility.PCBID2 = ui.pcbid2_spin.value()
-        # else:
-        #     eeprom_data.compatibility.PCBID2 = None
-        # # get the data
-        # IntelHex(eeprom_data.to_dict()).dump()
+        output_data = self._form_to_eeprom_data()
+        if output_data:
+            IntelHex(output_data.to_dict() or {}).dump()
         # # enable save if there is something to output
 
     # returns source_editor content as string file name
@@ -332,9 +329,10 @@ class MainApplicationActions(QtWidgets.QMainWindow):
             except:
                 # bad formula
                 validation_result = -2
+                return_value = ()
                 border_style = '2px dotted red'
         editor.setStyleSheet(f'border: {border_style}')
-        return return_value, validation_result
+        return tuple(return_value), validation_result
 
     # returns source_editor content and validity
     # can be used as a signal, in this case it handles the event in self.sender():
