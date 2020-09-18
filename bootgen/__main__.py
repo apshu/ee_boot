@@ -223,12 +223,23 @@ class MainApplicationActions(QtWidgets.QMainWindow):
 
     def save_project(self):
         _translate = QtCore.QCoreApplication.translate
-        file_name = QFileDialog.getSaveFileName(parent=None, caption=_translate("OpenFile", "Save project"), filter=_translate("OpenFile", "BOOT project (*.bootproject);;All Files (*)"))
+        file_name = QFileDialog.getSaveFileName(parent=None, caption=_translate('OpenFile', 'Save project'), filter=_translate('OpenFile', 'BOOT project (*.bootproject);;Intel HEX file (*.hex);;Binary file (*.bin);;All Files (*)'))
         if file_name[0]:
-            form_data = self.save_project_to_dict()
-            if form_data:
-                with open(file_name[0], 'w') as file_output:
-                    json.dump(form_data, file_output, sort_keys=True, indent=4)
+            end_data = IntelHex(self.recalculate())
+            end_data.padding = 0xFF
+            if end_data:
+                if file_name[1].find('*.hex') >=0:
+                    #Save file in HEX format
+                    end_data.tofile(file_name[0],'hex')
+                elif file_name[1].find('*.bin') >= 0:
+                    #Save file in BIN format
+                    end_data.tofile(file_name[0],'bin')
+                else:
+                    #Save as bootproject
+                    form_data = self.save_project_to_dict()
+                    if form_data:
+                        with open(file_name[0], 'w') as file_output:
+                            json.dump(form_data, file_output, sort_keys=True, indent=4)
 
     def device_programming(self):
         pass
@@ -265,7 +276,8 @@ class MainApplicationActions(QtWidgets.QMainWindow):
         output_data = self._form_to_eeprom_data()
         if output_data:
             IntelHex(output_data.to_dict() or {}).dump()
-        # # enable save if there is something to output
+            return output_data.to_dict()
+        return {}
 
     # returns source_editor content as string file name
     # can be used as a signal, in this case it handles the event in self.sender():
