@@ -3,6 +3,7 @@ import functools
 import json
 import os
 import itertools
+import datetime
 
 import numexpr
 from PyQt5 import QtCore, QtWidgets
@@ -171,6 +172,7 @@ class MainApplicationActions(QtWidgets.QMainWindow):
                 self.__signal_blockers[child].unblock()
 
     def releaseSignals(self):
+        super().blockSignals(False)
         if hasattr(self, f'_{self.__class__.__name__}__signal_blockers'):
             for blocker in self.__signal_blockers.values():
                 del blocker
@@ -228,7 +230,7 @@ class MainApplicationActions(QtWidgets.QMainWindow):
                 with open(file_name[0], 'w') as file_output:
                     json.dump(form_data, file_output, sort_keys=True, indent=4)
 
-    def save_hex(self):
+    def device_programming(self):
         pass
 
     def _form_to_eeprom_data(self):
@@ -281,6 +283,22 @@ class MainApplicationActions(QtWidgets.QMainWindow):
                 edit_text = os.path.abspath(edit_text)
                 if os.path.exists(edit_text):
                     if os.path.isfile(edit_text) and os.access(edit_text, os.R_OK):
+                        try:
+                            modification_time_since_epoc = os.path.getmtime(edit_text)
+                            modification_time = datetime.datetime.fromtimestamp(modification_time_since_epoc).strftime('%Y-%b-%d %X')
+                            file_content = IntelHex(edit_text)
+                            num_data_bytes = len(file_content)
+                            number_of_sections = len(file_content.segments())
+                            status_str = f'<font color="green">{os.path.basename(edit_text)}</font> last modified <font color="blue">{modification_time}</font>, {num_data_bytes} bytes in <font color="blue">{number_of_sections}</font> fragment{"" if num_data_bytes==1 else "s"}'
+                            hex_ranges_list, is_valid = self.get_hex_filter_ranges()
+                            if is_valid > 0:
+                                is_data_filter_dropped = not file_content.is_data_in_ranges(hex_ranges_list)
+                                if is_data_filter_dropped:
+                                    status_str += ', some <font color="red">data will be dropped</font> due to filtering'
+                            self.ui.input_file_status_lbl.setText(status_str)
+                        except:
+                            validation_result = -3
+                            border_style = '2px dotted red'
                         validation_result = 1
                         border_style = '2px solid green'
                     else:
@@ -366,25 +384,31 @@ class MainApplicationActions(QtWidgets.QMainWindow):
         return edit_text, validation_result
 
     def devid0_edited(self, str):
-        ui.devid0_used_cb.setChecked(bool(str.strip()))
-        self.sender().setStyleSheet('')
+        if not self.signalsBlocked():
+            ui.devid0_used_cb.setChecked(bool(str.strip()))
+            self.sender().setStyleSheet('')
 
     def devid1_edited(self, str):
-        ui.devid1_used_cb.setChecked(bool(str))
-        self.sender().setStyleSheet('')
+        if not self.signalsBlocked():
+            ui.devid1_used_cb.setChecked(bool(str))
+            self.sender().setStyleSheet('')
 
     def devid2_edited(self, str):
-        ui.devid2_used_cb.setChecked(bool(str))
-        self.sender().setStyleSheet('')
+        if not self.signalsBlocked():
+            ui.devid2_used_cb.setChecked(bool(str))
+            self.sender().setStyleSheet('')
 
     def pcbid0_edited(self, str):
-        ui.pcbid0_used_cb.setChecked(True)
+        if not self.signalsBlocked():
+            ui.pcbid0_used_cb.setChecked(True)
 
     def pcbid1_edited(self, str):
-        ui.pcbid1_used_cb.setChecked(True)
+        if not self.signalsBlocked():
+            ui.pcbid1_used_cb.setChecked(True)
 
     def pcbid2_edited(self, str):
-        ui.pcbid2_used_cb.setChecked(True)
+        if not self.signalsBlocked():
+            ui.pcbid2_used_cb.setChecked(True)
 
     def _add_programatic_ui_elements(self):
         self.__output_hex_file_name = ''
