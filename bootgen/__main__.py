@@ -145,7 +145,7 @@ class MainApplicationActions(QtWidgets.QMainWindow):
 
     def browse_for_input_file(self):
         _translate = QtCore.QCoreApplication.translate
-        fileName = QFileDialog.getOpenFileName(parent=None, caption=_translate("OpenFile", "Open application code"), filter=_translate("OpenFile", "Intel HEX (*.hex);;All Files (*)"))
+        fileName = QFileDialog.getOpenFileName(parent=None, caption=_translate("OpenFile", "Open application code"), filter=_translate('OpenFile', 'Intel HEX file (*.hex)')+';;'+_translate('OpenFile', 'Binary file (*.bin)')+';;'+_translate('OpenFile', 'All Files (*)'))
         if fileName[0]:
             ui.input_file_name_edt.setText(fileName[0])
             self.validate_file_editor(ui.input_file_name_edt)
@@ -212,7 +212,7 @@ class MainApplicationActions(QtWidgets.QMainWindow):
 
     def load_project(self):
         _translate = QtCore.QCoreApplication.translate
-        file_name = QFileDialog.getOpenFileName(parent=None, caption=_translate("OpenFile", "Open project"), filter=_translate("OpenFile", "BOOT project (*.bootproject);;All Files (*)"))
+        file_name = QFileDialog.getOpenFileName(parent=None, caption=_translate("OpenFile", "Open project"), filter=_translate('OpenFile', 'BOOT project (*.bootproject)')+';;'+_translate('OpenFile', 'All Files (*)'))
         if file_name[0]:
             with open(file_name[0]) as file_input:
                 data = json.load(file_input)
@@ -223,7 +223,7 @@ class MainApplicationActions(QtWidgets.QMainWindow):
 
     def save_project(self):
         _translate = QtCore.QCoreApplication.translate
-        file_name = QFileDialog.getSaveFileName(parent=None, caption=_translate('OpenFile', 'Save project'), filter=_translate('OpenFile', 'BOOT project (*.bootproject);;Intel HEX file (*.hex);;Binary file (*.bin);;All Files (*)'))
+        file_name = QFileDialog.getSaveFileName(parent=None, caption=_translate('OpenFile', 'Save project'), filter=_translate('OpenFile', 'BOOT project (*.bootproject)')+';;'+_translate('OpenFile', 'Intel HEX file (*.hex)')+';;'+_translate('OpenFile', 'Binary file (*.bin)')+';;'+_translate('OpenFile', 'All Files (*)'))
         if file_name[0]:
             end_data = IntelHex(self.recalculate())
             end_data.padding = 0xFF
@@ -231,18 +231,26 @@ class MainApplicationActions(QtWidgets.QMainWindow):
                 if file_name[1].find('*.hex') >=0:
                     #Save file in HEX format
                     end_data.tofile(file_name[0],'hex')
-                elif file_name[1].find('*.bin') >= 0:
-                    #Save file in BIN format
-                    end_data.tofile(file_name[0],'bin')
-                else:
+                elif file_name[1].find('*.bootproject') >= 0:
                     #Save as bootproject
                     form_data = self.save_project_to_dict()
                     if form_data:
                         with open(file_name[0], 'w') as file_output:
                             json.dump(form_data, file_output, sort_keys=True, indent=4)
+                else:
+                    #Save file in BIN format
+                    end_data.tofile(file_name[0],'bin')
 
     def device_programming(self):
         pass
+
+    def _get_file_format(self, file_name):
+        p, ext = os.path.splitext(file_name)
+        if ext.casefold() == '.hex'.casefold():
+            return 'hex'
+        elif ext.casefold() == '.bootproject'.casefold():
+            return 'bootproject'
+        return 'bin'
 
     def _form_to_eeprom_data(self):
         def val_or_default(condition_field, form_field, default = None):
@@ -253,7 +261,8 @@ class MainApplicationActions(QtWidgets.QMainWindow):
         prjio = self.get_project_file_io()
         eeprom_data = BootFormat()
         try:
-            input_hex_file = IntelHex(prjio.INPUT_FILE.form_value_asserted)
+            input_hex_file = IntelHex()
+            input_hex_file.loadfile(prjio.INPUT_FILE.form_value_asserted, self._get_file_format(prjio.INPUT_FILE.form_value_asserted))
             hex_ranges_list, is_valid = self.get_hex_filter_ranges()
             if is_valid < 0:
                 raise AttributeError('Input file filter ranges are invalid')
@@ -298,7 +307,8 @@ class MainApplicationActions(QtWidgets.QMainWindow):
                         try:
                             modification_time_since_epoc = os.path.getmtime(edit_text)
                             modification_time = datetime.datetime.fromtimestamp(modification_time_since_epoc).strftime('%Y-%b-%d %X')
-                            file_content = IntelHex(edit_text)
+                            file_content = IntelHex()
+                            file_content.loadfile(edit_text, self._get_file_format(edit_text))
                             num_data_bytes = len(file_content)
                             number_of_sections = len(file_content.segments())
                             status_str = f'<font color="green">{os.path.basename(edit_text)}</font> last modified <font color="blue">{modification_time}</font>, {num_data_bytes} bytes in <font color="blue">{number_of_sections}</font> fragment{"" if num_data_bytes==1 else "s"}'
@@ -311,8 +321,9 @@ class MainApplicationActions(QtWidgets.QMainWindow):
                         except:
                             validation_result = -3
                             border_style = '2px dotted red'
-                        validation_result = 1
-                        border_style = '2px solid green'
+                        else:
+                            validation_result = 1
+                            border_style = '2px solid green'
                     else:
                         validation_result = -2
                         border_style = '2px dotted red'
