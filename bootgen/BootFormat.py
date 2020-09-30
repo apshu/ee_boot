@@ -137,12 +137,12 @@ class _compatibility(dict):
     def to_bytes(self) -> bytes:
         self.__is_changed = False
         data_bytes = [0]
-        self._addid(data_bytes, 'PCBID2', 1)
         self._addid(data_bytes, 'DEVID2', 4)
-        self._addid(data_bytes, 'PCBID1', 1)
         self._addid(data_bytes, 'DEVID1', 4)
-        self._addid(data_bytes, 'PCBID0', 1)
         self._addid(data_bytes, 'DEVID0', 4)
+        self._addid(data_bytes, 'PCBID2', 1)
+        self._addid(data_bytes, 'PCBID1', 1)
+        self._addid(data_bytes, 'PCBID0', 1)
         data_bytes[0] |= self.VERSION << 6
         return bytes(data_bytes)
 
