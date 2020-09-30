@@ -7,10 +7,13 @@ import datetime
 
 import numexpr
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QLineEdit
+from PyQt5.QtWidgets import QFileDialog, QLineEdit, QDialog
 
+import data2eeprom_ui
+import programming_ui
 from BootFormat import BootFormat
 from IntelHexExtended import IntelHex
+from data2eeprom_ui import ProgrammerApplicationWindow
 from mainscreen import Ui_MainWindow
 
 
@@ -242,7 +245,13 @@ class MainApplicationActions(QtWidgets.QMainWindow):
                     end_data.tofile(file_name[0],'bin')
 
     def device_programming(self):
-        pass
+        IntelHex(self.recalculate()).dump()
+        dialog = data2eeprom_ui.ProgrammerApplicationWindow(self)
+        dialog.data_set = self.recalculate()
+        dialog.ui = programming_ui.Ui_ProgrammerDialog()
+        dialog.ui.setupUi(dialog)
+        dialog.show()
+        dialog.exec()
 
     def _get_file_format(self, file_name):
         p, ext = os.path.splitext(file_name)
@@ -284,7 +293,6 @@ class MainApplicationActions(QtWidgets.QMainWindow):
         print('recalculate')
         output_data = self._form_to_eeprom_data()
         if output_data:
-            IntelHex(output_data.to_dict() or {}).dump()
             return output_data.to_dict()
         return {}
 
@@ -450,6 +458,7 @@ if __name__ == '__main__':
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
+    print(app.arguments())
     MainWindow = MainApplicationActions()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)

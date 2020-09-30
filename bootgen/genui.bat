@@ -1,1 +1,2 @@
 "C:\Users\m91541\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0\LocalCache\local-packages\Python38\Scripts\pyuic5" -x mainscreen.ui -o mainscreen.py
+"C:\Users\m91541\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0\LocalCache\local-packages\Python38\Scripts\pyuic5" -x programming.ui -o programming_ui.py
