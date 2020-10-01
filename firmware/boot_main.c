@@ -11,15 +11,10 @@
 #include <sys/attribs.h>
 #include "eeboot.h"
 
-#define appStartAddress (0x1d000000)
-#define jump_to_app() do { Nop(); } while(0)
-/*
- * 
- */
-
-int main(void) {
+__longramfunc__ int main(void) {
     if (eeboot_isBootNeeded()) {
         if (!eeboot_loadImage(0UL)) {
+            //Do this on boot loader error
             while (1) {
                 continue;
             }

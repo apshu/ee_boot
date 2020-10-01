@@ -11,9 +11,8 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+    #include "eeboot_platform.h"
     
-#define eeboot_weak_far_ram_func __longramfunc__ __attribute__((weak))
-       
     typedef struct {
         uint32_t CRC32;
         uint32_t length;
@@ -43,13 +42,22 @@ extern "C" {
         uint32_t dataCRC32;
     } eeboot_segmentDescriptor_t;
     
-    eeboot_weak_far_ram_func bool eeboot_isBootNeeded(void);
-    eeboot_weak_far_ram_func bool eeboot_loadImage(uint32_t startAddress);
-    eeboot_weak_far_ram_func bool eeboot_seekReadData(uint32_t offset, size_t num_bytes, void* data_buffer);
-    eeboot_weak_far_ram_func uint32_t eeboot_getCRCseekRead(uint32_t offset, size_t num_bytes);
-    eeboot_weak_far_ram_func bool eeboot_isBootNeeded(void);
-    eeboot_weak_far_ram_func bool eeboot_isImageCompatible(eeboot_bootfileFixData_t *compatData);
-    eeboot_weak_far_ram_func bool eeboot_storeDataSegment(eeboot_segmentDescriptor_t *dataSegment);
+    typedef enum {
+        eeboot_FILE_HEADER_CRC32_POLY         = 0x4C11DB7,
+        eeboot_FILE_HEADER_CRC32_START_VALUE  = 0x544F4F42,
+        eeboot_FILE_HEADER_CRC32_XOR_VALUE    = 0,
+        eeboot_DATA_SEGMENT_CRC32_POLY        = eeboot_FILE_HEADER_CRC32_POLY,
+        eeboot_DATA_SEGMENT_CRC32_START_VALUE = eeboot_FILE_HEADER_CRC32_START_VALUE,
+        eeboot_DATA_SEGMENT_CRC32_XOR_VALUE   = eeboot_FILE_HEADER_CRC32_XOR_VALUE,
+    } eeboot_crc32_e;
+    
+    eeboot_ram_func bool eeboot_isBootNeeded(void);
+    eeboot_ram_func bool eeboot_loadImage(uint32_t startAddress);
+    eeboot_ram_func bool eeboot_seekReadData(uint32_t offset, size_t numBytes, void* dataBuffer);
+    eeboot_ram_func uint32_t eeboot_getCRCseekRead(uint32_t crc32StartValue, uint32_t crc32Poly, uint32_t offset, size_t numBytes);
+    eeboot_ram_func bool eeboot_isBootNeeded(void);
+    eeboot_ram_func bool eeboot_isImageCompatible(eeboot_bootfileFixData_t *compatData);
+    eeboot_ram_func bool eeboot_storeDataSegment(eeboot_segmentDescriptor_t *dataSegment);
     
 #ifdef	__cplusplus
 }
