@@ -66,9 +66,9 @@ class _boot_section():
     @property
     def data_CRC32(self) -> bytes:
         if self._data_bytes:
-            crcCalc = crcmod.Crc(poly=0x104C11DB7, initCrc=0x544f4f42, xorOut=0)
+            crcCalc = crcmod.Crc(poly=0x104C11DB7, rev=True, initCrc=0x544f4f42, xorOut=0)
             crcCalc.update(self._data_bytes)
-            return crcCalc.digest()
+            return struct.pack('<I', crcCalc.crcValue)
         return b'\xFF' * 4  # End of record
 
     def header_bytes(self) -> bytes:
@@ -193,9 +193,9 @@ class BootFormat(USBEEFormat):
                 binary_data_pointer += segment.num_data_bytes
             if self.description:
                 output.frombytes(encoded_description, segment_descriptor_address)
-            crcCalc = crcmod.Crc(poly=0x104C11DB7, initCrc=0x544f4f42, xorOut=0)
+            crcCalc = crcmod.Crc(poly=0x104C11DB7, rev=True, initCrc=0x544f4f42, xorOut=0)
             crcCalc.update(output.tobinstr(4, header_total_length - 1))
-            crc32 = crcCalc.digest()
+            crc32 = struct.pack('<I', crcCalc.crcValue)
             output.frombytes(crc32)
             self._cache = output.todict()
         return self._cache
