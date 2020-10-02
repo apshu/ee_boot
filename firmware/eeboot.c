@@ -1,27 +1,28 @@
 #include <xc.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <sys/attribs.h>
 
 #include "eeboot.h"
 
-eeboot_ram_func bool eeboot_seekReadData(uint32_t offset, size_t num_bytes, void* data_buffer) {
+eeboot_weak_ram_func bool eeboot_seekReadData(uint32_t offset, size_t num_bytes, void* data_buffer) {
     return false;
 }
 
-eeboot_ram_func uint32_t eeboot_getCRCseekRead(uint32_t crc32StartValue, uint32_t crc32Poly, uint32_t offset, size_t numBytes) {
+eeboot_weak_ram_func uint32_t eeboot_getCRCseekRead(uint32_t crc32StartValue, uint32_t crc32Poly, uint32_t offset, size_t numBytes) {
     return 0UL;
 }
 
-eeboot_ram_func bool eeboot_isBootNeeded(void) {
+eeboot_weak_ram_func bool eeboot_isBootNeeded(void) {
     return false;
 }
 
-eeboot_ram_func bool eeboot_isImageCompatible(eeboot_bootfileFixData_t *compatData) {
-    return false;
+eeboot_weak_ram_func bool eeboot_isImageCompatible(eeboot_bootfileFixData_t *compatData) {
+    //If compatibility check required, or newer version than supported, fail loading image. 
+    //If checks are required, user code has to do the check logic
+    return !(compatData->DEVID0_populated || compatData->DEVID1_populated || compatData->DEVID2_populated || compatData->PCBID0_populated || compatData->PCBID1_populated || compatData->PCBID2_populated || (compatData->version != 0));
 }
 
-eeboot_ram_func bool eeboot_storeDataSegment(eeboot_segmentDescriptor_t *dataSegment) {
+eeboot_weak_ram_func bool eeboot_storeDataSegment(eeboot_segmentDescriptor_t *dataSegment) {
     return false;
 }
 

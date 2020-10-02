@@ -20,12 +20,12 @@ extern "C" {
     } eeboot_fileHeader_t;
     
     typedef struct {
-        uint32_t PCBID0_valid :1;
-        uint32_t PCBID1_valid :1;
-        uint32_t PCBID2_valid :1;
-        uint32_t DEVID0_valid :1;
-        uint32_t DEVID1_valid :1;
-        uint32_t DEVID2_valid :1;
+        uint32_t PCBID0_populated :1;
+        uint32_t PCBID1_populated :1;
+        uint32_t PCBID2_populated :1;
+        uint32_t DEVID0_populated :1;
+        uint32_t DEVID1_populated :1;
+        uint32_t DEVID2_populated :1;
         uint32_t version :2;
         uint32_t PCBID0 :8;
         uint32_t PCBID1 :8;
@@ -43,7 +43,7 @@ extern "C" {
     } eeboot_segmentDescriptor_t;
     
     typedef enum {
-        eeboot_FILE_HEADER_CRC32_POLY         = 0x4C11DB7,
+        eeboot_FILE_HEADER_CRC32_POLY         = 0xEDB88320,   //Bit reflected 0x04C11DB7
         eeboot_FILE_HEADER_CRC32_START_VALUE  = 0x544F4F42,
         eeboot_FILE_HEADER_CRC32_XOR_VALUE    = 0,
         eeboot_DATA_SEGMENT_CRC32_POLY        = eeboot_FILE_HEADER_CRC32_POLY,
