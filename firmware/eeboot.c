@@ -53,6 +53,7 @@ eeboot_ram_func bool eeboot_loadImage(uint32_t inputDataOffsetAddress) {
 
                                     if (eeboot_storeDataSegment(&dataSegmentDescriptor)) {
                                         //Successfully stored and verified this segment
+                                        headerReadPosition += sizeof (dataSegmentDescriptor); //skip to next segment descriptor
                                         continue;
                                     }
                                 }
