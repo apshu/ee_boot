@@ -11,12 +11,14 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+#include <sys/attribs.h>
 
 #if !defined(eeboot_APP_START_ADDRESS)
 #define eeboot_APP_START_ADDRESS (0x9D000000UL)
 #endif
     
-#define eeboot_ram_func __longramfunc__ __attribute__((weak))
+#define eeboot_ram_func __longramfunc__
+#define eeboot_weak_ram_func eeboot_ram_func __attribute__((weak))
 #define jump_to_app() do { __asm__ __volatile__("\tla $t0,%0\n" "\tjr $t0": : "" (eeboot_APP_START_ADDRESS) ); } while(0)
 
 #ifdef	__cplusplus
