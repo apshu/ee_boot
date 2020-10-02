@@ -11,6 +11,10 @@
 #include <sys/attribs.h>
 #include "eeboot.h"
 
+eeboot_ram_func bool eeboot_isBootNeeded(void) {
+    return true;
+}
+
 __longramfunc__ int main(void) {
     if (eeboot_isBootNeeded()) {
         if (!eeboot_loadImage(0UL)) {
@@ -19,13 +23,10 @@ __longramfunc__ int main(void) {
                 continue;
             }
         }
-        SYSKEY = 0; // force lock
-        SYSKEY = 0xAA996655; // unlock
-        SYSKEY = 0x556699AA;
-        RSWRST = 1;
-        unsigned long int bitBucket = RSWRST;
-        // initiate the reset
-        while(1);
+        self_reset(); // initiate the reset
+        while (1) {
+            continue;
+        };
     }
     jump_to_app();
 }

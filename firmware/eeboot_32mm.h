@@ -16,10 +16,11 @@ extern "C" {
 #if !defined(eeboot_APP_START_ADDRESS)
 #define eeboot_APP_START_ADDRESS (0x9D000000UL)
 #endif
-    
+
 #define eeboot_ram_func __longramfunc__
 #define eeboot_weak_ram_func eeboot_ram_func __attribute__((weak))
 #define jump_to_app() do { __asm__ __volatile__("\tla $t0,%0\n" "\tjr $t0": : "" (eeboot_APP_START_ADDRESS) ); } while(0)
+#define self_reset() do { SYSKEY = 0; SYSKEY = 0xAA996655; SYSKEY = 0x556699AA; RSWRST = 1; unsigned long int bitBucket = RSWRST; } while(0)
 
 #ifdef	__cplusplus
 }
