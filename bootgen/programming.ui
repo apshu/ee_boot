@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ProgrammerDialog</class>
+ <widget class="QDialog" name="ProgrammerDialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>115</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Programming</string>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QProgressBar" name="program_progress">
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBoxExtra" name="programmer_cb">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="cancel_btn">
+       <property name="text">
+        <string>Close</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="program_btn">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Program</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="status_lbl">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QComboBoxExtra</class>
+   <extends>QComboBox</extends>
+   <header>qcomboboxextra</header>
+   <slots>
+    <signal>popup_shown()</signal>
+    <signal>popup_hidden()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>cancel_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>ProgrammerDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>104</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>131</x>
+     <y>75</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>program_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>ProgrammerDialog</receiver>
+   <slot>start_programming()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>257</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>284</x>
+     <y>75</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>programmer_cb</sender>
+   <signal>popup_shown()</signal>
+   <receiver>ProgrammerDialog</receiver>
+   <slot>populate_programmers()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>192</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>46</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>start_programming()</slot>
+  <slot>populate_programmers()</slot>
+ </slots>
+</ui>
