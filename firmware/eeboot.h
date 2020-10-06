@@ -51,11 +51,9 @@ extern "C" {
         eeboot_DATA_SEGMENT_CRC32_XOR_VALUE   = eeboot_FILE_HEADER_CRC32_XOR_VALUE,
     } eeboot_crc32_e;
     
-    eeboot_ram_func bool eeboot_isBootNeeded(void);
     eeboot_ram_func bool eeboot_loadImage(uint32_t startAddress);
     eeboot_ram_func bool eeboot_seekReadData(uint32_t offset, size_t numBytes, void* dataBuffer);
     eeboot_ram_func uint32_t eeboot_getCRCseekRead(uint32_t crc32StartValue, uint32_t crc32Poly, uint32_t offset, size_t numBytes);
-    eeboot_ram_func bool eeboot_isBootNeeded(void);
     eeboot_ram_func bool eeboot_isImageCompatible(eeboot_bootfileFixData_t *compatData);
     eeboot_ram_func bool eeboot_storeDataSegment(eeboot_segmentDescriptor_t *dataSegment);
     
