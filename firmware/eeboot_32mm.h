@@ -17,6 +17,8 @@ extern "C" {
 #define eeboot_APP_START_ADDRESS (0x9D000000UL)
 #endif
 
+#define OPEN_DRAIN             ODC
+
 #define eeboot_ram_func __ramfunc__
 #define eeboot_weak_ram_func eeboot_ram_func __attribute__((weak))
 #define jump_to_app() do { __asm__ __volatile__ (" jal %0\n" " nop\n": : "" (eeboot_APP_START_ADDRESS) ); } while(0)

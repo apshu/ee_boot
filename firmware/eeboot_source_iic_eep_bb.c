@@ -12,8 +12,6 @@
 #define PORT_LENGTH_BYTES 2
 #elif defined(__XC32__)
 #define PORT_LENGTH_BYTES 4
-#define ODCON ODC
-#define WPU CNPU
 #else 
 #warning "Compiler not recognized"
 #endif
@@ -222,12 +220,16 @@ eeboot_weak_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(initializeBitbangI2CP
     SDAportletter |= 'a' - 'A';
     SCLportletter |= 'a' - 'A';
     if (EEBOOT_SOURCE_IICEEPBB_NAMESPACE(selectBitbangI2CPort)(SDAportletter, SDAportbit, SCLportletter, SCLportbit)) {
-        *swi2c_getregptr(ODCON, SDAportletter - 'a') |= swi2c_SDApinmask;
-        *swi2c_getregptr(ODCON, SCLportletter - 'a') |= swi2c_SCLpinmask;
+#if defined(OPEN_DRAIN)
+        *swi2c_getregptr(OPEN_DRAIN, SDAportletter - 'a') |= swi2c_SDApinmask;
+        *swi2c_getregptr(OPEN_DRAIN, SCLportletter - 'a') |= swi2c_SCLpinmask;
+#endif
         swi2c_set_SCL();
         swi2c_set_SDA();
-        *swi2c_getregptr(WPU, SDAportletter - 'a') |= swi2c_SDApinmask;
-        *swi2c_getregptr(WPU, SCLportletter - 'a') |= swi2c_SCLpinmask;
+#if defined(INTERNAL_PULL_RESISTOR)
+        *swi2c_getregptr(INTERNAL_PULL_RESISTOR, SDAportletter - 'a') |= swi2c_SDApinmask;
+        *swi2c_getregptr(INTERNAL_PULL_RESISTOR, SCLportletter - 'a') |= swi2c_SCLpinmask;
+#endif
         *swi2c_getregptr(ANSEL, SDAportletter - 'a') &= ~swi2c_SDApinmask;
         *swi2c_getregptr(ANSEL, SCLportletter - 'a') &= ~swi2c_SCLpinmask;
         *swi2c_getregptr(TRIS, SDAportletter - 'a') &= ~swi2c_SDApinmask;
