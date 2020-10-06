@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=boot_main.c eeboot.c
+SOURCEFILES_QUOTED_IF_SPACED=boot_main.c eeboot.c eeboot_write_flash_pic32m.c eeboot_source_iic_eep_bb.c configbits.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/boot_main.o ${OBJECTDIR}/eeboot.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/boot_main.o.d ${OBJECTDIR}/eeboot.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/boot_main.o ${OBJECTDIR}/eeboot.o ${OBJECTDIR}/eeboot_write_flash_pic32m.o ${OBJECTDIR}/eeboot_source_iic_eep_bb.o ${OBJECTDIR}/configbits.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/boot_main.o.d ${OBJECTDIR}/eeboot.o.d ${OBJECTDIR}/eeboot_write_flash_pic32m.o.d ${OBJECTDIR}/eeboot_source_iic_eep_bb.o.d ${OBJECTDIR}/configbits.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/boot_main.o ${OBJECTDIR}/eeboot.o
+OBJECTFILES=${OBJECTDIR}/boot_main.o ${OBJECTDIR}/eeboot.o ${OBJECTDIR}/eeboot_write_flash_pic32m.o ${OBJECTDIR}/eeboot_source_iic_eep_bb.o ${OBJECTDIR}/configbits.o
 
 # Source Files
-SOURCEFILES=boot_main.c eeboot.c
+SOURCEFILES=boot_main.c eeboot.c eeboot_write_flash_pic32m.c eeboot_source_iic_eep_bb.c configbits.c
 
 
 
@@ -91,7 +91,7 @@ endif
 	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/boot_ee_32mm.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=32MM0256GPM028
-MP_LINKER_FILE_OPTION=
+MP_LINKER_FILE_OPTION=,--script="p32MM0256GPM028_bootloader.ld"
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
@@ -111,30 +111,72 @@ ${OBJECTDIR}/boot_main.o: boot_main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/boot_main.o.d 
 	@${RM} ${OBJECTDIR}/boot_main.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -MMD -MF "${OBJECTDIR}/boot_main.o.d" -o ${OBJECTDIR}/boot_main.o boot_main.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -Os -MMD -MF "${OBJECTDIR}/boot_main.o.d" -o ${OBJECTDIR}/boot_main.o boot_main.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	@${FIXDEPS} "${OBJECTDIR}/boot_main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/eeboot.o: eeboot.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/eeboot.o.d 
 	@${RM} ${OBJECTDIR}/eeboot.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -MMD -MF "${OBJECTDIR}/eeboot.o.d" -o ${OBJECTDIR}/eeboot.o eeboot.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -Os -MMD -MF "${OBJECTDIR}/eeboot.o.d" -o ${OBJECTDIR}/eeboot.o eeboot.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	@${FIXDEPS} "${OBJECTDIR}/eeboot.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/eeboot_write_flash_pic32m.o: eeboot_write_flash_pic32m.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/eeboot_write_flash_pic32m.o.d 
+	@${RM} ${OBJECTDIR}/eeboot_write_flash_pic32m.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -Os -MMD -MF "${OBJECTDIR}/eeboot_write_flash_pic32m.o.d" -o ${OBJECTDIR}/eeboot_write_flash_pic32m.o eeboot_write_flash_pic32m.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	@${FIXDEPS} "${OBJECTDIR}/eeboot_write_flash_pic32m.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/eeboot_source_iic_eep_bb.o: eeboot_source_iic_eep_bb.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/eeboot_source_iic_eep_bb.o.d 
+	@${RM} ${OBJECTDIR}/eeboot_source_iic_eep_bb.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -Os -MMD -MF "${OBJECTDIR}/eeboot_source_iic_eep_bb.o.d" -o ${OBJECTDIR}/eeboot_source_iic_eep_bb.o eeboot_source_iic_eep_bb.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	@${FIXDEPS} "${OBJECTDIR}/eeboot_source_iic_eep_bb.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/configbits.o: configbits.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/configbits.o.d 
+	@${RM} ${OBJECTDIR}/configbits.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -Os -MMD -MF "${OBJECTDIR}/configbits.o.d" -o ${OBJECTDIR}/configbits.o configbits.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	@${FIXDEPS} "${OBJECTDIR}/configbits.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
 	
 else
 ${OBJECTDIR}/boot_main.o: boot_main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/boot_main.o.d 
 	@${RM} ${OBJECTDIR}/boot_main.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -MMD -MF "${OBJECTDIR}/boot_main.o.d" -o ${OBJECTDIR}/boot_main.o boot_main.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -Os -MMD -MF "${OBJECTDIR}/boot_main.o.d" -o ${OBJECTDIR}/boot_main.o boot_main.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	@${FIXDEPS} "${OBJECTDIR}/boot_main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/eeboot.o: eeboot.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/eeboot.o.d 
 	@${RM} ${OBJECTDIR}/eeboot.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -MMD -MF "${OBJECTDIR}/eeboot.o.d" -o ${OBJECTDIR}/eeboot.o eeboot.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -Os -MMD -MF "${OBJECTDIR}/eeboot.o.d" -o ${OBJECTDIR}/eeboot.o eeboot.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	@${FIXDEPS} "${OBJECTDIR}/eeboot.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/eeboot_write_flash_pic32m.o: eeboot_write_flash_pic32m.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/eeboot_write_flash_pic32m.o.d 
+	@${RM} ${OBJECTDIR}/eeboot_write_flash_pic32m.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -Os -MMD -MF "${OBJECTDIR}/eeboot_write_flash_pic32m.o.d" -o ${OBJECTDIR}/eeboot_write_flash_pic32m.o eeboot_write_flash_pic32m.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	@${FIXDEPS} "${OBJECTDIR}/eeboot_write_flash_pic32m.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/eeboot_source_iic_eep_bb.o: eeboot_source_iic_eep_bb.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/eeboot_source_iic_eep_bb.o.d 
+	@${RM} ${OBJECTDIR}/eeboot_source_iic_eep_bb.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -Os -MMD -MF "${OBJECTDIR}/eeboot_source_iic_eep_bb.o.d" -o ${OBJECTDIR}/eeboot_source_iic_eep_bb.o eeboot_source_iic_eep_bb.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	@${FIXDEPS} "${OBJECTDIR}/eeboot_source_iic_eep_bb.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/configbits.o: configbits.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/configbits.o.d 
+	@${RM} ${OBJECTDIR}/configbits.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mno-float -Os -MMD -MF "${OBJECTDIR}/configbits.o.d" -o ${OBJECTDIR}/configbits.o configbits.c   -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	@${FIXDEPS} "${OBJECTDIR}/configbits.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
 	
 endif
 
@@ -147,14 +189,14 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-dist/${CND_CONF}/${IMAGE_TYPE}/boot_ee_32mm.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
+dist/${CND_CONF}/${IMAGE_TYPE}/boot_ee_32mm.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    p32MM0256GPM028_bootloader.ld
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) -g -mdebugger -D__MPLAB_DEBUGGER_SIMULATOR=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/boot_ee_32mm.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}         -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)      -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,-D=__DEBUG_D,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,--gc-sections,--no-code-in-dinit,--no-dinit-in-serial-mem,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -mdfp="${DFP_DIR}"
+	${MP_CC} $(MP_EXTRA_LD_PRE) -g -mdebugger -D__MPLAB_DEBUGGER_ICD3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/boot_ee_32mm.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}         -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)   -mreserve=data@0x0:0x1FC -mreserve=boot@0x1FC00490:0x1FC016FF -mreserve=boot@0x1FC00490:0x1FC00BEF  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,-D=__DEBUG_D,--defsym=__MPLAB_DEBUGGER_ICD3=1,--no-check-sections,--gc-sections,--no-code-in-dinit,--no-dinit-in-serial-mem,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -mdfp="${DFP_DIR}"
 	
 else
-dist/${CND_CONF}/${IMAGE_TYPE}/boot_ee_32mm.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
+dist/${CND_CONF}/${IMAGE_TYPE}/boot_ee_32mm.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   p32MM0256GPM028_bootloader.ld
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/boot_ee_32mm.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}         -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--gc-sections,--no-code-in-dinit,--no-dinit-in-serial-mem,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -mdfp="${DFP_DIR}"
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/boot_ee_32mm.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}         -save-temps=obj -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--no-check-sections,--gc-sections,--no-code-in-dinit,--no-dinit-in-serial-mem,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -mdfp="${DFP_DIR}"
 	${MP_CC_DIR}\\xc32-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/boot_ee_32mm.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} 
 endif
 
