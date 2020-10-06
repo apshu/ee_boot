@@ -12,10 +12,6 @@ eeboot_weak_ram_func uint32_t eeboot_getCRCseekRead(uint32_t crc32StartValue, ui
     return 0UL;
 }
 
-eeboot_weak_ram_func bool eeboot_isBootNeeded(void) {
-    return false;
-}
-
 eeboot_weak_ram_func bool eeboot_isImageCompatible(eeboot_bootfileFixData_t *compatData) {
     //If compatibility check required, or newer version than supported, fail loading image. 
     //If checks are required, user code has to do the check logic
