@@ -19,7 +19,7 @@ extern "C" {
 
 #define eeboot_ram_func __ramfunc__
 #define eeboot_weak_ram_func eeboot_ram_func __attribute__((weak))
-#define jump_to_app() do { __asm__ __volatile__("\tla $t0,%0\n" "\tjr $t0": : "" (eeboot_APP_START_ADDRESS) ); } while(0)
+#define jump_to_app() do { __asm__ __volatile__ (" jal %0\n" " nop\n": : "" (eeboot_APP_START_ADDRESS) ); } while(0)
 #define self_reset() do { SYSKEY = 0; SYSKEY = 0xAA996655; SYSKEY = 0x556699AA; RSWRST = 1; unsigned long int bitBucket = RSWRST; } while(0)
 #if defined(NDEBUG) || !defined(__DEBUG)
 #define assert(X) do { ((void)0); } while(0)
