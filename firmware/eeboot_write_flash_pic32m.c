@@ -45,7 +45,7 @@ eeboot_ram_func static bool erase_page(uint32_t erase_address) {
 /* Write a full page */
 eeboot_ram_func static bool write_page(uint32_t write_address, void *data) {
     NVMADDR = write_address;
-    NVMSRCADDR = (uint32_t) data;
+    NVMSRCADDR = ((uint32_t) data) & 0x1FFFFFFF; //Need physical memory location
     return !NVMUnlock(0x4003);
 }
 
@@ -88,8 +88,8 @@ eeboot_ram_func bool EEBOOT_WRITE_INTFLASH_NAMESPACE(storeDataSegment)(eeboot_se
             return false;
         }
         uint32_t *verifyBuffer = (uint32_t*) (writeAddress | 0xA0000000); //Allocate to KSEG1 uncached segment
-        int counter;
-        for (counter = WRITE_PAGE_BYTES / 4; counter; --counter) {
+        int counter = WRITE_PAGE_BYTES / 4;
+        while(counter--) {
             if (verifyBuffer[counter] != intFlashSourceBuffer[counter]) {
                 return false;
             }
