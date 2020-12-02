@@ -1,4 +1,3 @@
-import codecs
 import struct
 import typing
 
@@ -168,19 +167,7 @@ class BootFormat(USBEEFormat):
     def to_dict(self):
         if (not self._cache) or self.compatibility.is_changed:
             output = IntelHex()
-            try:
-                encoded_description = self.description.encode('ascii')
-            except:
-                try:
-                    encoded_description = codecs.BOM_UTF8 + self.description.encode('utf-8')
-                except:
-                    try:
-                        encoded_description = codecs.BOM_UTF16_BE + self.description.encode('utf-16-be')
-                    except:
-                        try:
-                            encoded_description = codecs.BOM_UTF32_BE + self.description.encode('utf-32-be')
-                        except:
-                            raise UnicodeEncodeError('Cannot encode text in ASCII or UTF-8 or UTF-16 or UTF-32')
+            encoded_description = self.string_to_BOM_string(self.description)
             header_total_length = 28 + len(self._segments) * _boot_section().len_descriptor + len(encoded_description)
             binary_data_pointer = header_total_length
             header_total_length_bytes = struct.pack('<I', header_total_length)

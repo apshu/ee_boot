@@ -1,7 +1,6 @@
 from time import sleep
 
 import intelhex
-from pip._internal.cli.cmdoptions import progress_bar
 
 
 class EEPROM_generic(object):
@@ -127,11 +126,11 @@ class EEP_IIC_CHUNK_READER(EEPROM_generic):
         address_L = int(start_address[3:5], 16)
         address_H = int(start_address[1:3], 16)
         address_U = int(start_address[0], 16) & 3
-        self.iic_bridge.I2C_Write(self.iic_base_address | address_U, [address_H, address_L])
+        self.iic_bridge.iic_write(self.iic_base_address | address_U, [address_H, address_L])
         data = []
         nack_ctr = 0
         while num_bytes_to_read > 0:
-            data_chunk = self.iic_bridge.I2C_Read(self.iic_base_address, min(num_bytes_to_read, self.READ_CHUNK_BYTES))
+            data_chunk = self.iic_bridge.iic_read(self.iic_base_address, min(num_bytes_to_read, self.READ_CHUNK_BYTES))
             if data_chunk == -1:
                 nack_ctr += 1
                 if nack_ctr > 10:
@@ -181,7 +180,7 @@ class EEP_IIC_16bit_GENERIC(EEP_IIC_CHUNK_READER):
         if self.test_mode:
             print('Device mounted in test mode')
             return True
-        return self.iic_bridge.I2C_Read(self.iic_base_address, 1) != -1
+        return self.iic_bridge.iic_read(self.iic_base_address, 1) != -1
 
     def unmount(self) -> bool:
         super().unmount()
@@ -195,7 +194,7 @@ class EEP_IIC_16bit_GENERIC(EEP_IIC_CHUNK_READER):
         address_L = int(start_address[3:5], 16)
         address_H = int(start_address[1:3], 16)
         address_U = int(start_address[0], 16) & 3
-        self.iic_bridge.I2C_Write(self.iic_base_address | address_U, bytes([address_H, address_L]) + bytes_to_write)
+        self.iic_bridge.iic_write(self.iic_base_address | address_U, bytes([address_H, address_L]) + bytes_to_write)
         self.progress_current_bytes += len(bytes_to_write)
         self.update_progress()
         return True
