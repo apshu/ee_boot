@@ -77,6 +77,7 @@ static bool isBootNeeded(void) {
         return true;
     }
     ENABLE_BTN();
+    __delay_ms(2); //Due to slower OSC, it will delay significantly more
     if (IS_BTN_ACTIVE()) {
         //Possible boot request
         configureOscillator();

@@ -70,7 +70,7 @@ OPTIONAL("processor.o")
  *   xc32-gcc src.c -Wl,--defsym=_ebase_address=0x9D001000
  *************************************************************************/
 PROVIDE(_vector_spacing = 0x0001);
-PROVIDE(_ebase_address = 0x9D000500);
+PROVIDE(_ebase_address = 0x9D001000);
 
 /*************************************************************************
  * Memory Address Equates
@@ -106,7 +106,7 @@ _GEN_EXCPT_ADDR                = _ebase_address + 0x180;
 
 MEMORY
 {
-  kseg0_program_mem     (rx)  : ORIGIN = 0x9D000500, LENGTH = 0x3FFB00
+  kseg0_program_mem     (rx)  : ORIGIN = 0x9D001700, LENGTH = 0x3F000
   debug_exec_mem              : ORIGIN = 0x9FC00490, LENGTH = 0x760
   kseg0_boot_mem              : ORIGIN = 0x9D000490, LENGTH = 0x0
   kseg1_boot_mem              : ORIGIN = 0xBD000000, LENGTH = 0x490
