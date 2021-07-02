@@ -74,7 +74,7 @@ static eeboot_ram_func bool i2c_restart_cond(void) {
 
     // Repeated start setup time, minimum 4.7us
     swi2c_halfbit_delay();
-    i2c_start_cond();
+    (void)i2c_start_cond();
 }
 
 static eeboot_ram_func bool i2c_stop_cond(void) {
@@ -206,7 +206,7 @@ static eeboot_ram_func unsigned char i2c_read_byte(bool isnack) {
         databyte = (databyte << 1) | (i2c_read_bit() ? 1 : 0);
     }
 
-    i2c_write_bit(isnack);
+    (void)i2c_write_bit(isnack);
 
     return databyte;
 }
@@ -264,8 +264,8 @@ eeboot_weak_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(initializeBitbangI2CP
 eeboot_weak_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(selectBitbangI2CPort)(char SDAportletter, uint_least8_t SDAportbit, char SCLportletter, uint_least8_t SCLportbit) {
     SDAportletter |= 'a' - 'A';
     SCLportletter |= 'a' - 'A';
-    if ((SDAportletter >= 'a') && (SDAportletter <= 'f') && (SDAportbit < (1 << PORT_LENGTH_BYTES)) &&
-            (SCLportletter >= 'a') && (SCLportletter <= 'f') && (SCLportbit < (1 << PORT_LENGTH_BYTES))) {
+    if ((SDAportletter >= 'a') && (SDAportletter <= 'f') && (SDAportbit < (PORT_LENGTH_BYTES << 3)) &&
+            (SCLportletter >= 'a') && (SCLportletter <= 'f') && (SCLportbit < (PORT_LENGTH_BYTES << 3))) {
         swi2c_SDAport = swi2c_getregptr(PORT, SDAportletter - 'a');
         swi2c_SDAlat = swi2c_getregptr(LAT, SDAportletter - 'a');
         swi2c_SDApinmask = 1 << SDAportbit;
@@ -309,7 +309,7 @@ static eeboot_ram_func bool eeboot_setEEPROMReadAddress(uint32_t eepWriteAddress
                 }
             }
         }
-        i2c_stop_cond();
+        (void)i2c_stop_cond();
     }
     return false;
 }
@@ -334,12 +334,13 @@ eeboot_ram_func uint32_t EEBOOT_SOURCE_IICEEPBB_NAMESPACE(getCRCseekRead)(uint32
     if (eeboot_setEEPROMReadAddress(offset)) {
         //Read address set, read mode engaged
         int k;
-        while (numBytes--) {
+        while (numBytes != 0) {
+            --numBytes;
             crc32StartValue ^= i2c_read_byte(!numBytes);
             for (k = 0; k < 8; k++)
                 crc32StartValue = (crc32StartValue & 1) ? ((crc32StartValue >> 1) ^ crc32Poly) : (crc32StartValue >> 1);
         }
-        i2c_stop_cond();
+        (void)i2c_stop_cond();
     }
     return crc32StartValue;
 }

@@ -62,8 +62,8 @@ static void configureOscillator(void) {
     OSCCON = (0x100 | _OSCCON_OSWEN_MASK);
     SYSKEY = 0x0; //write invalid key to force lock
     // Wait for Clock switch to occur 
-    while (OSCCONbits.OSWEN == 1);
-    while (CLKSTATbits.SPLLRDY != 1);
+    while (OSCCONbits.OSWEN == 1) { continue; }
+    while (CLKSTATbits.SPLLRDY != 1) { continue; }
     // ON disabled; DIVSWEN enabled; RSLP disabled; ROSEL SYSCLK; OE disabled; SIDL disabled; RODIV 1; 
     REFO1CON = 0x10200;
     // ROTRIM 0; 
@@ -89,7 +89,7 @@ static bool isBootNeeded(void) {
             } else {
                 btnCtr = 0;
             }
-            if (btnCtr > 50) {
+            if (btnCtr > 50U) {
                 //Bootload request for 5 continuous seconds
                 for (btnCtr = 20; btnCtr; --btnCtr) {
                     if (IS_BTN_ACTIVE()) {

@@ -22,7 +22,7 @@ eeboot_ram_func static uint32_t NVMUnlock(uint32_t nvmop) {
     // Start the operation using the Set Register
     NVMCONSET = 0x8000;
     // Wait for operation to complete
-    while (NVMCON & 0x8000);
+    while ((NVMCON & 0x8000) != 0) { continue; }
     // Restore Interrupts
     if (status & 0x00000001) {
         asm volatile (" ei");
@@ -89,7 +89,8 @@ eeboot_ram_func bool EEBOOT_WRITE_INTFLASH_NAMESPACE(storeDataSegment)(eeboot_se
         }
         uint32_t *verifyBuffer = (uint32_t*) (writeAddress | 0xA0000000); //Allocate to KSEG1 uncached segment
         int counter = WRITE_PAGE_BYTES / 4;
-        while(counter--) {
+        while(counter != 0) {
+            counter--;
             if (verifyBuffer[counter] != intFlashSourceBuffer[counter]) {
                 return false;
             }
