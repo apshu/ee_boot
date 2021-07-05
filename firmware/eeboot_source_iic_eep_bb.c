@@ -74,7 +74,7 @@ static eeboot_ram_func bool i2c_restart_cond(void) {
 
     // Repeated start setup time, minimum 4.7us
     swi2c_halfbit_delay();
-    (void)i2c_start_cond();
+    return i2c_start_cond();
 }
 
 static eeboot_ram_func bool i2c_stop_cond(void) {
@@ -215,7 +215,7 @@ static eeboot_ram_func unsigned char i2c_read_byte(bool isnack) {
 #define _swi2c_getregptr(thereg, elem) __swi2c_getregptr(thereg, elem)
 #define swi2c_getregptr(thereg, elem) _swi2c_getregptr(thereg, elem)
 
-eeboot_weak_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(initializeBitbangI2CPort)(char SDAportletter, uint_least8_t SDAportbit, char SCLportletter, uint_least8_t SCLportbit) {
+eeboot_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(initializeBitbangI2CPort)(char SDAportletter, uint_least8_t SDAportbit, char SCLportletter, uint_least8_t SCLportbit) {
     assert(sizeof (PORTA) == PORT_LENGTH_BYTES); //Check if compile configuration matches architecture. Check happens only in debug mode
     SDAportletter |= 'a' - 'A';
     SCLportletter |= 'a' - 'A';
@@ -261,7 +261,7 @@ eeboot_weak_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(initializeBitbangI2CP
     return false;
 }
 
-eeboot_weak_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(selectBitbangI2CPort)(char SDAportletter, uint_least8_t SDAportbit, char SCLportletter, uint_least8_t SCLportbit) {
+eeboot_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(selectBitbangI2CPort)(char SDAportletter, uint_least8_t SDAportbit, char SCLportletter, uint_least8_t SCLportbit) {
     SDAportletter |= 'a' - 'A';
     SCLportletter |= 'a' - 'A';
     if ((SDAportletter >= 'a') && (SDAportletter <= 'f') && (SDAportbit < (PORT_LENGTH_BYTES << 3)) &&
@@ -314,7 +314,7 @@ static eeboot_ram_func bool eeboot_setEEPROMReadAddress(uint32_t eepWriteAddress
     return false;
 }
 
-eeboot_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(seekReadData)(uint32_t offset, size_t numBytes, void* dataBuffer) {
+eeboot_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(seekReadData)(uint32_t offset, uint32_t numBytes, void* dataBuffer) {
     if (eeboot_setEEPROMReadAddress(offset)) {
         //Read address set, read mode engaged
         uint8_t *dataBuf = (uint8_t*) dataBuffer;
@@ -330,7 +330,7 @@ eeboot_ram_func bool EEBOOT_SOURCE_IICEEPBB_NAMESPACE(seekReadData)(uint32_t off
     return false;
 }
 
-eeboot_ram_func uint32_t EEBOOT_SOURCE_IICEEPBB_NAMESPACE(getCRCseekRead)(uint32_t crc32StartValue, uint32_t crc32Poly, uint32_t offset, size_t numBytes) {
+eeboot_ram_func uint32_t EEBOOT_SOURCE_IICEEPBB_NAMESPACE(getCRCseekRead)(uint32_t crc32StartValue, uint32_t crc32Poly, uint32_t offset, uint32_t numBytes) {
     if (eeboot_setEEPROMReadAddress(offset)) {
         //Read address set, read mode engaged
         int k;

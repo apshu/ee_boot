@@ -4,11 +4,11 @@
 
 #include "eeboot.h"
 
-eeboot_weak_ram_func bool eeboot_seekReadData(uint32_t offset, size_t num_bytes, void* data_buffer) {
+eeboot_weak_ram_func bool eeboot_seekReadData(uint32_t offset, uint32_t num_bytes, void* data_buffer) {
     return false;
 }
 
-eeboot_weak_ram_func uint32_t eeboot_getCRCseekRead(uint32_t crc32StartValue, uint32_t crc32Poly, uint32_t offset, size_t numBytes) {
+eeboot_weak_ram_func uint32_t eeboot_getCRCseekRead(uint32_t crc32StartValue, uint32_t crc32Poly, uint32_t offset, uint32_t numBytes) {
     return 0UL;
 }
 
