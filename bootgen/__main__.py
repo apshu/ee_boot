@@ -458,7 +458,6 @@ if __name__ == '__main__':
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-    print(app.arguments())
     MainWindow = MainApplicationActions()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
